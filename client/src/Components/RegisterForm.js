@@ -8,12 +8,14 @@ const RegisterForm = () => {
 	const { userData } = useContext(UserContext);
 	const history = useNavigate();
 	const [form, setForm] = useState({});
+	 const [loading, setLoading] = useState(false);
 	const onChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	};
 
 	const submit = async (e) => {
 		e.preventDefault();
+		setLoading(true);
 		try {
 			if (
 				!form.displayName ||
@@ -39,7 +41,9 @@ const RegisterForm = () => {
 			history("/login");
 		} catch (err) {
 			toast.error(err.response.data.msg);
-		}
+		}finally {
+			setLoading(false);
+		  }
 	};
 
 	useEffect(() => {
@@ -93,8 +97,8 @@ const RegisterForm = () => {
 						placeholder="Preferred Name"
 					/>
 				</div>
-				<button className="register-btn rounded-pill" type="submit">
-					Register
+				<button className="register-btn rounded-pill" type="submit" disabled={loading}>
+					{loading ? "Loading..." : "Register"}
 				</button>
 				<button
 					className="login-btn rounded-pill"

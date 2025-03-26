@@ -6,13 +6,17 @@ const ResendVerification = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/users/resend-verification`, { email });
       setMessage(response.data.msg);
     } catch (error) {
       setError(error.response.data.msg);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -32,7 +36,9 @@ const ResendVerification = () => {
             required
           />
         </div>
-        <button className="login-btn rounded-pill"  style={{ margin: 20 }} type="submit">Resend Verification Email</button>
+        <button className="login-btn rounded-pill"  style={{ margin: 20 }} type="submit"  disabled={loading}>
+          {loading ? 'Sending...' : 'Resend Verification Email'}
+          </button>
       </form>
       {message && <p className="message">{message}</p>}
       {error && <p className="error">{error}</p>}

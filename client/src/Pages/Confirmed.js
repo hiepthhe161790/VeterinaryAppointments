@@ -8,7 +8,7 @@ const Confirmed = (props) => {
   useEffect(() => {
     (async () => {
       try {
-        await axios.post("/register", { token: props.match.params.token });
+        await axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/register`, { token: props.match.params.token });
         history("/");
       } catch (err) {
         console.log(err);
