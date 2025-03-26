@@ -1,0 +1,72 @@
+.admin-nav {
+  background: linear-gradient(90deg, rgba(89, 79, 234, 1) 0%, rgba(163, 50, 157, 1) 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 250px;
+}
+
+.admin-nav-item {
+  margin-bottom: 15px;
+}
+
+.admin-nav-item h2 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.3s;
+  text-align: center;
+}
+
+.admin-nav-item h2:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.admin-nav-item a {
+  text-decoration: none;
+  color: white;
+  display: block;
+}
+
+/* Hiệu ứng active */
+.active-nav h2 {
+  background-color: rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+  transform: scale(1.05);
+  border-left: 5px solid white;
+  padding-left: 15px;
+}
+#nav {
+  background-color: #343a40;
+  padding: 15px 20px;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: center; /* Căn giữa nội dung */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  position: relative; /* Định vị phần user-info */
+}
+
+.nav-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%); /* Căn giữa chính xác */
+  text-align: center;
+  color: white;
+}
+
+.user-info {
+  position: absolute;
+  right: 20px; /* Đẩy sang phải */
+  color: white;
+  text-align: right;
+}
+
+.user-info p {
+  margin: 0;
+}

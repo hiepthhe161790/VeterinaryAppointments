@@ -1,0 +1,11 @@
+.ReactModal__Overlay {
+    background-color: rgba(0, 0, 0, 0.75) !important; /* Màu nền overlay */
+  }
+  
+  .ReactModal__Content {
+    background: none !important; /* Loại bỏ nền trắng */
+    border: none !important; /* Loại bỏ viền */
+    max-width: 450px;
+    margin: auto;
+    padding: 0;
+  }
