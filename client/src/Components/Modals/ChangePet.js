@@ -56,7 +56,7 @@ const ChangePet = (props) => {
                     .then((data) => (newPet.PetImageLoc = data.data.fileUrl));
             }
 
-            await axios.patch("${process.env.REACT_APP_BACKEND_API_URL}/api/updatepet/" + newPet._id, newPet, {
+            await axios.patch(`${process.env.REACT_APP_BACKEND_API_URL}/api/updatepet/` + newPet._id, newPet, {
                 headers: { "x-auth-token": localStorage.getItem("auth-token") },
             });
             toast.success("Pet updated successfully");

@@ -43,7 +43,7 @@ const AddPet = ({ show, handleClose }) => {
 					.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
 			}
 
-			await axios.post("${process.env.REACT_APP_BACKEND_API_URL}/api/pet", newPet, {
+			await axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/api/pet`, newPet, {
 				headers: { "x-auth-token": localStorage.getItem("auth-token") },
 			});
 			toast.success("Pet added successfully");
