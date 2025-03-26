@@ -74,7 +74,7 @@ const VietQr = ({ appointment }) => {
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                {!appointment.paymentStatus && (
+                {appointment.paymentStatus !== "Completed" && (
                         <Button variant="success" onClick={() => ConfirmPayment(appointment._id)}>
                             Confirm Payment
                         </Button>
