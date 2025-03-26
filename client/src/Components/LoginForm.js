@@ -11,12 +11,14 @@ const LoginForm = () => {
   const history = useNavigate();
   const [form, setForm] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const onChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
   console.log("Backend API URL:", process.env.REACT_APP_BACKEND_API_URL);
   const submitLoginForm = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/users/login`, form);
       console.log("data", data);
@@ -41,6 +43,8 @@ const LoginForm = () => {
     } catch (err) {
       console.log("err", err.response);
       toast.error(err?.response?.data?.msg);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -78,8 +82,8 @@ const LoginForm = () => {
           />
         </div>
 
-        <button className="login-btn rounded-pill" type="submit">
-          Login
+        <button className="login-btn rounded-pill" type="submit" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
         </button>
         <button
           className="register-btn rounded-pill"
