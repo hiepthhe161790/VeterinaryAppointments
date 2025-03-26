@@ -32,7 +32,7 @@ const RegisterForm = () => {
 				return toast.error("Password must contain at least 8 characters.");
 			}
 
-			await axios.post("/users/register", form);
+			await axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/users/register`, form);
 			toast.success(
 				"Check your email and follow the link to verify your account!"
 			);
