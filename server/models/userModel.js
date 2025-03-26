@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Pets = require("./pets");
-const DoctorModel = require("./doctorModel");
+const DoctorModel = require("./DoctorModel");
 const userSchema = new mongoose.Schema({
 	email: {
 		type: String,
