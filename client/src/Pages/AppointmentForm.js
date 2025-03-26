@@ -9,7 +9,7 @@ import { getAllDoctors } from '../Components/Helpers/DoctorFuntion';
 import PetContext from '../Context/PetContext';
 import { useNavigate } from "react-router-dom";
 import AddPet from '../Components/Modals/AddPet';
-import {loadUserPets } from '../Components/Helpers/PetFunctions';
+import { loadUserPets } from '../Components/Helpers/PetFunctions';
 const AppointmentForm = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -42,10 +42,10 @@ const AppointmentForm = () => {
     fetchDoctors();
   }, []);
   useEffect(() => {
-    const fetchPets = async () => {    
+    const fetchPets = async () => {
       const petsData = await loadUserPets(userDetails?.id);
       setPets(petsData);
-     
+
     };
     fetchPets();
   }, []);
@@ -88,7 +88,7 @@ const AppointmentForm = () => {
       const data = await response.json();
       if (data === 'Please Login again') {
         Swal.fire('Please login again');
-         history("/login");
+        history("/login");
       } else if (data === 'Appointment Created') {
         Swal.fire('Appointment created', '', 'success');
         setTimeout(() => {
@@ -102,7 +102,7 @@ const AppointmentForm = () => {
     }
   };
 
-  
+
 
   return (
     <div>
@@ -168,11 +168,13 @@ const AppointmentForm = () => {
                     required
                   >
                     <option value="">select address</option>
-                    {doctors?.map((doctor) => (
-                      <option key={doctor._id} value={doctor._id}>
-                        {doctor?.name}
-                      </option>
-                    ))}
+                    {doctors
+                      ?.filter((doctor) => doctor?.name)
+                      .map((doctor) => (
+                        <option key={doctor?._id} value={doctor?._id}>
+                          {doctor?.name}
+                        </option>
+                      ))}
                   </select>
                 </div>
               </div>
@@ -198,13 +200,13 @@ const AppointmentForm = () => {
               </div>
               <div className="form-group row">
                 <label className="col-sm-4">My Pet
-                
+
                   <i
                     className="bi bi-plus-circle ml-2 text-primary"
                     style={{ cursor: "pointer", fontSize: "1.2rem", marginLeft: "10px" }}
                     onClick={() => setShowModal(true)}
                   ></i>
-              
+
                 </label>
                 <div className="col-sm-8 col-lg-8">
                   <select
@@ -282,7 +284,7 @@ const AppointmentForm = () => {
       </div>
       {/* Footer start */}
       <div id="footer"></div>
-      <AddPet show={showModal} handleClose={() => setShowModal(false)}/>
+      <AddPet show={showModal} handleClose={() => setShowModal(false)} />
     </div>
   );
 };

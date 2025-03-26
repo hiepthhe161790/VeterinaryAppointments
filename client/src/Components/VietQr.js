@@ -7,27 +7,31 @@ const VietQr = ({ appointment }) => {
     const [qrData, setQrData] = useState(null);
     const [error, setError] = useState(null);
     const [showModal, setShowModal] = useState(false);
-    const [loading, setLoading] = useState(false); // Trạng thái loading
+    const [loading, setLoading] = useState(false); 
 
     const addInfo = encodeURIComponent(`${appointment.name} - ${appointment._id}`);
     const accountName = encodeURIComponent("Nguyen Hoang Khoi Minh");
 
     const qrUrl = `https://img.vietqr.io/image/TCB-19035703304019-compact.png?amount=${appointment.fee}&addInfo=${addInfo}&accountName=${accountName}`;
 
+
     const generateQr = async () => {
-        setLoading(true); // Bắt đầu loading
+        setLoading(true); 
         try {
             const response = await axios.get(qrUrl, {
                 responseType: "arraybuffer",
             });
 
-            const qrImage = Buffer.from(response.data, "binary").toString("base64");
+            const qrImage = btoa(
+                new Uint8Array(response.data)
+                    .reduce((data, byte) => data + String.fromCharCode(byte), "")
+            );
             setQrData(`data:image/png;base64,${qrImage}`);
             setShowModal(true);
         } catch (error) {
             setError(error.message);
         } finally {
-            setLoading(false); // Dừng loading
+            setLoading(false); 
         }
     };
 
@@ -58,8 +62,6 @@ const VietQr = ({ appointment }) => {
             <button className="btn btn-primary" onClick={generateQr} disabled={loading}>
                 {loading ? <Spinner animation="border" size="sm" /> : "Generate QR"}
             </button>
-
-            {/* Bootstrap Modal */}
             <Modal show={showModal} onHide={() => setShowModal(false)} centered>
                 <Modal.Header closeButton>
                     <Modal.Title className="text-primary">QR Code Payment</Modal.Title>
@@ -74,7 +76,7 @@ const VietQr = ({ appointment }) => {
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                {appointment.paymentStatus !== "Completed" && (
+                    {appointment.paymentStatus !== "Completed" && (
                         <Button variant="success" onClick={() => ConfirmPayment(appointment._id)}>
                             Confirm Payment
                         </Button>
@@ -84,7 +86,6 @@ const VietQr = ({ appointment }) => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-
             {error && <p className="text-danger mt-2">Error: {error}</p>}
         </div>
     );
