@@ -9,31 +9,20 @@ const morgan = require('morgan');
 const { doctorRouter } = require("./routes/DoctorRouter");
 const { AppointmentRouter } = require("./routes/AppointmentRouter");
 app.use(morgan());
-require('dotenv').config()
+require('dotenv').config();
 
-
-// console.log("yo",process.env.GDRIVE);
 // testing Socket.io
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
-
-app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-});
 
 io.on("connection", (socket) => {
   console.log("a user connected");
 });
 
 // setup express
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
 
 // setup routes
 app.use("/register", require("./routes/confirmRoutes"));
@@ -42,10 +31,11 @@ app.use("/api", require("./routes/petRoutes"));
 app.use("/api", require("./routes/imageRoutes"));
 app.use("/api", require("./routes/imgLocRoutes"));
 app.use("/appointment", AppointmentRouter);
-
 app.use("/doctor", doctorRouter);
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+
+// Remove serving React build files
+app.get("/", (req, res) => {
+  res.send("API is running");
 });
 
 app.listen(PORT, () => console.log(`Listening at: http://localhost:${PORT}`));
