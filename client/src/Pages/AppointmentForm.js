@@ -7,7 +7,7 @@ import '.././styles/navbar.css';
 import UserContext from "../Context/UserContext";
 import { getAllDoctors } from '../Components/Helpers/DoctorFuntion';
 import PetContext from '../Context/PetContext';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AddPet from '../Components/Modals/AddPet';
 import {loadUserPets } from '../Components/Helpers/PetFunctions';
 const AppointmentForm = () => {
@@ -23,7 +23,7 @@ const AppointmentForm = () => {
     petId: '',
   });
 
-  const history = useHistory();
+  const history = useNavigate();
   const { userData } = useContext(UserContext);
   const userDetails = userData.user;
   const [pets, setPets] = useState([]);
@@ -32,7 +32,7 @@ const AppointmentForm = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    if (!userData.user) history.push("/");
+    if (!userData.user) history("/");
   }, [userData.user, history]);
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -43,7 +43,7 @@ const AppointmentForm = () => {
   }, []);
   useEffect(() => {
     const fetchPets = async () => {    
-      const petsData = await loadUserPets(userDetails.id);
+      const petsData = await loadUserPets(userDetails?.id);
       setPets(petsData);
      
     };
@@ -88,11 +88,11 @@ const AppointmentForm = () => {
       const data = await response.json();
       if (data === 'Please Login again') {
         Swal.fire('Please login again');
-         history.push("/login");
+         history("/login");
       } else if (data === 'Appointment Created') {
         Swal.fire('Appointment created', '', 'success');
         setTimeout(() => {
-          history.push("/view-appointment");
+          history("/view-appointment");
         }, 2000);
       } else {
         Swal.fire('Slot Not Available', 'Try a different time slot', 'error');

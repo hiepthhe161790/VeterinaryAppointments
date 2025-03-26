@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Replace Switch with Routes
 import Home from "./Pages/Home";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
@@ -28,7 +28,7 @@ import ResetPassword from "./Pages/ResetPassword";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import PayOSReturnHandler from "./Pages/Thank/PayOSReturnHandler";
 import CancelReturnHandler from "./Pages/Thank/CancelReturnHandler";
-// import "./App.css";
+
 function App() {
   const [userData, setUserData] = useState({
     user: undefined,
@@ -62,7 +62,7 @@ function App() {
     };
 
     checkLoggedIn();
-  }, [  ]);
+  }, []);
 
   useEffect(() => {
     if (userData.user?.id) {
@@ -79,43 +79,36 @@ function App() {
 
         <UserContext.Provider value={{ userData, setUserData }}>
           <PetContext.Provider value={{ newPetData, setNewPetData, petId, setPetId, appt, setAppt, pets, setPets }}>
-            <Switch>
+            <Routes>
               {/* Admin Routes */}
-              <Route path="/admin">
-                <AdminNavBar />
-                <Switch>
-                  <Route exact path="/admin" component={Dashboard} />
-                  <Route path="/admin/add-doctor/:id" component={AddDoctor} />
-                  <Route path="/admin/view-doctor/:id" component={UpdateDoctor} />
-                  <Route path="/admin/users" component={AdminAccount} />
-                  <Route path="/admin/doctors" component={AdminDoctor} />
-                  <Route path="/admin/admin/petDash/:petId" component={AdminPetDash} />
-                  <Route path="/admin/appointment" component={AdminPanel} />
-                </Switch>
+              <Route path="/admin" element={<AdminNavBar />}>
+                <Route index element={<Dashboard />} />
+                <Route path="add-doctor/:id" element={<AddDoctor />} />
+                <Route path="view-doctor/:id" element={<UpdateDoctor />} />
+                <Route path="users" element={<AdminAccount />} />
+                <Route path="doctors" element={<AdminDoctor />} />
+                <Route path="admin/petDash/:petId" element={<AdminPetDash />} />
+                <Route path="appointment" element={<AdminPanel />} />
               </Route>
 
               {/* User Routes */}
-              <Route path="/">
-                <NavBar />
-                <Switch>
-                  <Route path="/homePage" component={HomePage} />
-                  <Route path="/book-appointment" component={AppointmentForm} />
-                  <Route path="/view-appointment" component={AppointmentList} />
-                  <Route exact path="/petDash" component={PetDash} />
-                  <Route path="/login" component={Login} />
-                  <Route path="/register" component={Register} />
-                  <Route path="/confirm" component={Confirm} />
-                  <Route path="/confirm_token/:token" component={Confirmed} />
-                  <Route path="/forgot-password" component={ForgotPassword} />
-                  <Route path="/reset-password/:token" component={ResetPassword} />
-                  <Route path="/success" component={PayOSReturnHandler} />
-                  <Route path="/cancel" component={CancelReturnHandler} />
-                  <Route exact path="/" component={Home} />
-                 
-                </Switch>
-                 <Footer /> 
+              <Route path="/" element={<NavBar />}>
+                <Route path="homePage" element={<HomePage />} />
+                <Route path="book-appointment" element={<AppointmentForm />} />
+                <Route path="view-appointment" element={<AppointmentList />} />
+                <Route path="petDash" element={<PetDash />} />
+                <Route path="login" element={<Login />} />
+                <Route path="register" element={<Register />} />
+                <Route path="confirm" element={<Confirm />} />
+                <Route path="confirm_token/:token" element={<Confirmed />} />
+                <Route path="forgot-password" element={<ForgotPassword />} />
+                <Route path="reset-password/:token" element={<ResetPassword />} />
+                <Route path="success" element={<PayOSReturnHandler />} />
+                <Route path="cancel" element={<CancelReturnHandler />} />
+                <Route index element={<Home />} />
               </Route>
-            </Switch>
+              <Route path="/" element={<Footer />} />
+            </Routes>
         
           </PetContext.Provider>
         </UserContext.Provider>

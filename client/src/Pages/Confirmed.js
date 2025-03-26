@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Confirmed = (props) => {
-  const history = useHistory();
+  const history = useNavigate();
 
   useEffect(() => {
     (async () => {
       try {
         await axios.post("/register", { token: props.match.params.token });
-        history.push("/");
+        history("/");
       } catch (err) {
         console.log(err);
       }

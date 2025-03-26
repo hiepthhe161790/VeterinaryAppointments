@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 const PayOSReturnHandler = () => {
-    const history = useHistory();
+    const history = useNavigate();
 
     useEffect(() => {
         const handlePayOSReturn = async () => {
@@ -15,15 +15,15 @@ const PayOSReturnHandler = () => {
 
                 if (response.data.message === 'Payment successful') {
                    toast.success('Payment successful!');
-                    history.push('/view-appointment'); // Chuyển hướng đến trang xem lịch hẹn
+                    history('/view-appointment'); // Chuyển hướng đến trang xem lịch hẹn
                 } else {
                     toast.error('Payment failed!');
-                    history.push('/view-appointment'); // Chuyển hướng đến trang xem lịch hẹn
+                    history('/view-appointment'); // Chuyển hướng đến trang xem lịch hẹn
                 }
             } catch (error) {
                 console.error('Error handling PayOS return:', error);
                    toast.error(error?.response?.data?.message);
-                history.push('/view-appointment'); // Chuyển hướng đến trang xem lịch hẹn
+                history('/view-appointment'); // Chuyển hướng đến trang xem lịch hẹn
             }
         };
 

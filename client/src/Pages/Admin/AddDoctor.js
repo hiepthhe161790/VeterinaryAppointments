@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../styles/admin.css';
 import AdminSideBar from './AdminSideBar';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom';
 import {toast} from 'react-toastify';
 
 const AddDoctor = () => {

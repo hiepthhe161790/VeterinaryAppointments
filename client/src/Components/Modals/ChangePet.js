@@ -1,7 +1,7 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import axios from "axios";
 import PetContext from "../../Context/PetContext";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Moment from "moment";
 import { toast } from "react-toastify";
 import { Button, Modal } from "react-bootstrap";
@@ -15,7 +15,7 @@ const ChangePet = (props) => {
     const { show, handleClose } = props;
     const { newPetData, setNewPetData } = useContext(PetContext);
     const pet = props.data;
-    const history = useHistory();
+    const history = useNavigate();
 
     useEffect(() => {
         pet && setnewPet(pet);
@@ -23,7 +23,7 @@ const ChangePet = (props) => {
 
     useEffect(() => {
         newPetData &&
-            history.push({
+            history({
                 pathname: "/petDash",
                 state: { info: newPetData },
             });
@@ -142,29 +142,39 @@ const ChangePet = (props) => {
       defaultValue={newPet?.BirthDate ? Moment(newPet.BirthDate).format("YYYY-MM-DD") : ""}
     />
   </div>
-
   <div className="mb-3">
-    <label className="form-label fw-bold">Gender</label>
-    <select name="Gender" onChange={handleChange} className="form-select">
-      <option value="">Select Gender</option>
-      <option value="Male" selected={newPet?.Gender === "Male"}>Male</option>
-      <option value="Female" selected={newPet?.Gender === "Female"}>Female</option>
-      <option value="Other" selected={newPet?.Gender === "Other"}>Other</option>
-    </select>
-  </div>
+  <label className="form-label fw-bold">Gender</label>
+  <select 
+    name="Gender" 
+    onChange={handleChange} 
+    className="form-select"
+    value={newPet?.Gender || ""}
+  >
+    <option value="">Select Gender</option>
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+    <option value="Other">Other</option>
+  </select>
+</div>
 
-  <div className="mb-3">
-    <label className="form-label fw-bold">Type of Pet</label>
-    <select name="TypeOfPet" onChange={handleChange} className="form-select">
-      <option value="">Select Pet Type</option>
-      <option value="Dog" selected={newPet?.TypeOfPet === "Dog"}>Dog</option>
-      <option value="Cat" selected={newPet?.TypeOfPet === "Cat"}>Cat</option>
-      <option value="Bird" selected={newPet?.TypeOfPet === "Bird"}>Bird</option>
-      <option value="Fish" selected={newPet?.TypeOfPet === "Fish"}>Fish</option>
-      <option value="Reptile" selected={newPet?.TypeOfPet === "Reptile"}>Reptile</option>
-      <option value="Other" selected={newPet?.TypeOfPet === "Other"}>Other</option>
-    </select>
-  </div>
+<div className="mb-3">
+  <label className="form-label fw-bold">Type of Pet</label>
+  <select 
+    name="TypeOfPet" 
+    onChange={handleChange} 
+    className="form-select"
+    value={newPet?.TypeOfPet || ""}
+  >
+    <option value="">Select Pet Type</option>
+    <option value="Dog">Dog</option>
+    <option value="Cat">Cat</option>
+    <option value="Bird">Bird</option>
+    <option value="Fish">Fish</option>
+    <option value="Reptile">Reptile</option>
+    <option value="Other">Other</option>
+  </select>
+</div>
+
 
   <div className="mb-3">
     <label className="form-label fw-bold">Breed</label>

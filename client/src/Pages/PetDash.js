@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext, useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 import VetVisits from "../Components/VetVisits";
 import Medications from "../Components/Medications";
@@ -15,7 +15,7 @@ const PetDash = () => {
     const { userData } = useContext(UserContext);
     const [data, setData] = useState();
     const [img] = useState();
-    const history = useHistory();
+    const history = useNavigate();
     const location = useLocation();
     const { newPetData, setNewPetData } = useContext(PetContext);
     const [showModal, setShowModal] = useState(false);
@@ -40,7 +40,7 @@ const PetDash = () => {
     useEffect(() => { }, [img]);
 
     useEffect(() => {
-        if (!userData.user) history.push("/");
+        if (!userData.user) history("/");
     }, [userData.user, history]);
 
     return (

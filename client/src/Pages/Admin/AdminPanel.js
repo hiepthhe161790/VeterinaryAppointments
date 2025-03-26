@@ -285,7 +285,8 @@ const AdminPanel = () => {
                         aria-labelledby="petModalLabel"
                         aria-hidden="true"
                       >
-                        <div className="modal-dialog">
+                        <div className="modal-dialog modal-dialog-centered modal-lg"
+                          style={{ transition: "transform 0.3s ease-out" }}>
                           <div className="modal-content">
                             <div className="modal-header">
                               <h5 className="modal-title" id="petModalLabel">Information Pet</h5>

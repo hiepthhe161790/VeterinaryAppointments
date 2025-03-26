@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import UserContext from "../Context/UserContext.js";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const RegisterForm = () => {
 	const { userData } = useContext(UserContext);
-	const history = useHistory();
+	const history = useNavigate();
 	const [form, setForm] = useState({});
 	const onChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
@@ -36,14 +36,14 @@ const RegisterForm = () => {
 			toast.success(
 				"Check your email and follow the link to verify your account!"
 			);
-			history.push("/login");
+			history("/login");
 		} catch (err) {
 			toast.error(err.response);
 		}
 	};
 
 	useEffect(() => {
-		if (userData.user) history.push("/");
+		if (userData.user) history("/");
 	}, [userData.user, history]);
 
 	return (
@@ -99,7 +99,7 @@ const RegisterForm = () => {
 				<button
 					className="login-btn rounded-pill"
 					style={{ margin: 20 }}
-					onClick={() => history.push("/login")}
+					onClick={() => history("/login")}
 				>
 					Login
 				</button>

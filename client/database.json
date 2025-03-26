@@ -1,0 +1,444 @@
+{
+  "Category": [
+    {
+      "id": 1,
+      "Category_Name": "Samsung",
+      "Logo": "Images/category/samsung.png"
+    },
+    {
+      "id": 2,
+      "Category_Name": "Xiaomi",
+      "Logo": "Images/category/xiaomi.png"
+    },
+    {
+      "id": 3,
+      "Category_Name": "Vivo",
+      "Logo": "Images/category/vivo.png"
+    },
+    {
+      "id": 4,
+      "Category_Name": "Iphone",
+      "Logo": "Images/category/iphone.png"
+    },
+    {
+      "id": 5,
+      "Category_Name": "Oppo",
+      "Logo": "Images/category/oppo.png"
+    },
+    {
+      "id": 6,
+      "Category_Name": "Nokia",
+      "Logo": "Images/category/nokia.png"
+    }
+  ],
+  "Product": [
+    {
+      "id": 1,
+      "Name": "Samsung Galaxy Z Flip4 5G 128GB",
+      "Category_ID": 1,
+      "Price": 15990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/8/10/637957658354316100_samsung-galaxy-z-flip4-tim-1.jpg"
+    },
+    {
+      "id": 2,
+      "Name": "Samsung Galaxy S22 5G 128GB",
+      "Category_ID": 1,
+      "Price": 12490000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/7/23/637941779749495327_samsung-galaxy-s22-bora-purple-1.jpg"
+    },
+    {
+      "id": 3,
+      "Name": "Samsung Galaxy S23 Ultra 5G 256GB",
+      "Category_ID": 1,
+      "Price": 25990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2023/2/2/638108933021851432_samsung-galaxy-s23-ultra-xanh-1.jpg"
+    },
+    {
+      "id": 4,
+      "Name": "Samsung Galaxy Z Fold4 5G 256GB",
+      "Category_ID": 1,
+      "Price": 29990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2023/4/10/638167221773541058_samsung-galaxy-z-fold4-do-1.jpg"
+    },
+    {
+      "id": 5,
+      "Name": "Samsung Galaxy A34 5G",
+      "Category_ID": 1,
+      "Price": 7490000,
+      "Quantity": 10,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2023/5/23/638204338060434614_samsung-galaxy-a34-den-1.jpg"
+    },
+    {
+      "id": 6,
+      "Name": "Samsung Galaxy A54 5G 128GB",
+      "Category_ID": 1,
+      "Price": 9190000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2023/5/23/638204321010051997_samsung-galaxy-a54-5g-den-1.jpg"
+    },
+    {
+      "id": 7,
+      "Name": "Samsung Galaxy A14 4G",
+      "Category_ID": 1,
+      "Price": 3790000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2023/5/23/638204362401987928_samsung-galaxy-a14-4g-den-2.jpg"
+    },
+    {
+      "id": 8,
+      "Name": "Samsung Galaxy A23 5G",
+      "Category_ID": 1,
+      "Price": 4890000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/10/19/638017839470367776_samsung-galaxy-a23-5g-den-2.jpg"
+    },
+    {
+      "id": 9,
+      "Name": "Samsung Galaxy A04s",
+      "Category_ID": 1,
+      "Price": 3490000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2023/5/23/638204394273382414_samsung-galaxy-a04s-den-4.jpg"
+    },
+    {
+      "id": 10,
+      "Name": "Samsung Galaxy A04",
+      "Category_ID": 1,
+      "Price": 2290000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2023/5/23/638204396773490668_samsung-galaxy-a04-xanh-5.jpg"
+    },
+    {
+      "id": 11,
+      "Name": "Xiaomi Redmi 10A 3GB-64GB",
+      "Category_ID": 2,
+      "Price": 2590000,
+      "Quantity": 10,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/12/21/638072287029793818_Xiaomi-Redmi-10A-2GB-32GB-xam-1.jpg"
+    },
+    {
+      "id": 12,
+      "Name": "Xiaomi Redmi 10 2022 4GB-128GB",
+      "Category_ID": 2,
+      "Price": 3790000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/5/10/637877742594774669_xiaomi-redmi-10-2022-xam-1.jpg"
+    },
+    {
+      "id": 13,
+      "Name": "Xiaomi Redmi Note 12 4GB-128GB",
+      "Category_ID": 2,
+      "Price": 4590000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2023/3/22/638150992294466598_xiaomi-redmi-note-12-xam-5.jpg"
+    },
+    {
+      "id": 14,
+      "Name": "Xiaomi 13 Lite 8GB-128GB",
+      "Category_ID": 2,
+      "Price": 8790000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2023/2/20/638125128408536178_xiaomi-13-lite-den-1.jpg"
+    },
+    {
+      "id": 15,
+      "Name": "Xiaomi Redmi A1 2GB-32GB",
+      "Category_ID": 2,
+      "Price": 1890000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/9/30/638001575577748669_xiaomi-redmi-a1-xanh-5.jpg"
+    },
+    {
+      "id": 16,
+      "Name": "Xiaomi Redmi 12C 4GB - 64GB",
+      "Category_ID": 2,
+      "Price": 1890000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2023/3/8/638138646675311035_xiaomi-redmi-12c-xam-1.jpg"
+    },
+    {
+      "id": 17,
+      "Name": "Xiaomi Redmi Note 11 4GB - 128GB ",
+      "Category_ID": 2,
+      "Price": 3990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/1/27/637788719726788724_xiaomi-redmi-note-11-xanh-1.jpg"
+    },
+    {
+      "id": 18,
+      "Name": "Xiaomi Redmi Note 11S 8GB - 128GB",
+      "Category_ID": 2,
+      "Price": 4990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/2/14/637804380953725497_xiaomi-redmi-note-11s-xanh-2.jpg"
+    },
+    {
+      "id": 19,
+      "Name": "Xiaomi Redmi Note 11 Pro 8GB - 128GB",
+      "Category_ID": 2,
+      "Price": 7490000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/2/14/637804673212874594_2.xiaomi-redmi-note-11-pro-4g-trang-4.jpg"
+    },
+    {
+      "id": 20,
+      "Name": "Xiaomi 13 8GB-256GB",
+      "Category_ID": 2,
+      "Price": 17490000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2023/2/20/638125113177912131_xiaomi-13-den-5.jpg"
+    },
+    {
+      "id": 21,
+      "Name": "Vivo V25 Pro 5G 8GB-128GB",
+      "Category_ID": 3,
+      "Price": 10990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/11/10/638036697912517443_vivo-v25-pro-5g-xanh-5.jpg"
+    },
+    {
+      "id": 22,
+      "Name": "Vivo V25 5G 8GB-128GB",
+      "Category_ID": 3,
+      "Price": 9390000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/9/14/637987658871975174_vivo-v25e-den-1.jpg"
+    },
+    {
+      "id": 23,
+      "Name": "Vivo V25 5G 8GB-128GB",
+      "Category_ID": 3,
+      "Price": 8490000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/9/14/637987654398636993_vivo-v25e-vang-1.jpg"
+    },
+    {
+      "id": 24,
+      "Name": "Vivo Y35 8GB-128GB",
+      "Category_ID": 3,
+      "Price": 6990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/10/18/638016883147092027_vivo-y35-vang-3.jpg"
+    },
+    {
+      "id": 25,
+      "Name": "Vivo Y22s 8GB-128GB",
+      "Category_ID": 3,
+      "Price": 5990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/9/9/637983398316214932_vivo-y22s-xanh-7.jpg"
+    },
+    {
+      "id": 26,
+      "Name": "Vivo T1x 4GB-64GB",
+      "Category_ID": 3,
+      "Price": 4490000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/7/21/637939995440901432_vivo-t1x-xanh-1.jpg"
+    },
+    {
+      "id": 27,
+      "Name": "Vivo Y16 4GB-128GB",
+      "Category_ID": 3,
+      "Price": 4490000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/9/9/637983383787837357_vivo-y16-vang-6.jpg"
+    },
+    {
+      "id": 28,
+      "Name": "Vivo Y15s 3GB - 32GB",
+      "Category_ID": 3,
+      "Price": 3490000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2021/10/25/637707822857276078_00779950-vivo-y15s-trang-xanh-1.jpg"
+    },
+    {
+      "id": 29,
+      "Name": "Vivo Y02 2GB-32GB",
+      "Category_ID": 3,
+      "Price": 2790000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/11/28/638052549038602052_vivo-y02-xanh-5.jpg"
+    },
+    {
+      "id": 30,
+      "Name": "Vivo Y02s 3GB-32GB",
+      "Category_ID": 3,
+      "Price": 3490000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/800x800/filters:quality(90):fill(white):upscale()/fptshop.com.vn/Uploads/Originals/2022/7/22/637940794898480222_vivo-y02s-3gb-32gb-xanh-1.jpg"
+    },
+    {
+      "id": 31,
+      "Name": "iPhone 11 64GB",
+      "Category_ID": 4,
+      "Price": 10480000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/12/6/638059309890101717_iphone-11-trang-1.jpg"
+    },
+    {
+      "id": 32,
+      "Name": "iPhone 12 64GB",
+      "Category_ID": 4,
+      "Price": 14990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/12/6/638059237853240136_iphone-12-xanhla-1.jpg"
+    },
+    {
+      "id": 33,
+      "Name": "iPhone 13 128GB",
+      "Category_ID": 4,
+      "Price": 16790000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/4/25/637864945998054414_iphone-13-do-5.jpg"
+    },
+    {
+      "id": 34,
+      "Name": "iPhone 14 128GB",
+      "Category_ID": 4,
+      "Price": 19180000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/11/30/638054088819837718_ip-14-do-1.jpg"
+    },
+    {
+      "id": 35,
+      "Name": "iPhone 14 Plus 128GB",
+      "Category_ID": 4,
+      "Price": 21680000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/11/30/638054166106341023_ip-14-plus-do-1.jpg"
+    },
+    {
+      "id": 36,
+      "Name": "iPhone 14 Pro 128GB",
+      "Category_ID": 4,
+      "Price": 24880000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/11/30/638054215482172772_ip-14-pro-vang-1.jpg"
+    },
+    {
+      "id": 37,
+      "Name": "iPhone 14 Pro Max 128GB",
+      "Category_ID": 4,
+      "Price": 26580000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/11/30/638054218956629637_ip-14-pro-max-den-1.jpg"
+    },
+    {
+      "id": 38,
+      "Name": "OPPO Reno8 T 5G 128GB",
+      "Category_ID": 5,
+      "Price": 9490000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/1/30/638106988528390612_oppo-reno8-t-5g-vang-4.jpg"
+    },
+    {
+      "id": 39,
+      "Name": "OPPO Reno8 4G 8GB - 256GB",
+      "Category_ID": 5,
+      "Price": 6990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/8/5/637952897275583126_oppo-reno8-4g-den-3.jpg"
+    },
+    {
+      "id": 40,
+      "Name": "OPPO A55 4GB-64GB",
+      "Category_ID": 5,
+      "Price": 3690000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/3/21/637834586195915126_oppo-a55-xanhla-5.jpg"
+    },
+    {
+      "id": 41,
+      "Name": "OPPO A57 4GB-128GB",
+      "Category_ID": 5,
+      "Price": 4190000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/6/17/637910569083881950_oppo-a57-den-1.jpg"
+    },
+    {
+      "id": 42,
+      "Name": "OPPO A17 4GB-64GB",
+      "Category_ID": 5,
+      "Price": 3690000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/10/17/638016278087001775_oppo-a17-den-5.jpg"
+    },
+    {
+      "id": 43,
+      "Name": "OPPO A17k 3GB-64GB",
+      "Category_ID": 5,
+      "Price": 2990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/10/26/638023775850076020_oppo-a17k-xanh-2.jpg"
+    },
+    {
+      "id": 44,
+      "Name": "Oppo Reno6 5G",
+      "Category_ID": 5,
+      "Price": 6990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/7/21/637624918153620815_oppo-reno6-den-5.jpg"
+    },
+    {
+      "id": 45,
+      "Name": "OPPO Find X5 Pro 12GB - 256GB",
+      "Category_ID": 5,
+      "Price": 22990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/9/8/637982295035080684_oppo-find-x5-pro-den-5.jpg"
+    },
+    {
+      "id": 46,
+      "Name": "OPPO A95 8GB-128GB",
+      "Category_ID": 5,
+      "Price": 5490000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/11/18/637728698842651830_oppo-a95-bac-5.jpg"
+    },
+    {
+      "id": 47,
+      "Name": "OPPO Reno7 Z 5G 8GB - 128GB",
+      "Category_ID": 5,
+      "Price": 6490000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/2/28/637816847403986651_oppo-reno7-z-den-4.jpg"
+    },
+    {
+      "id": 48,
+      "Name": "OPPO Reno6 Z 5G",
+      "Category_ID": 5,
+      "Price": 5990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/7/8/637613328812450235_oppo-reno6z-den-5.jpg"
+    },
+    {
+      "id": 49,
+      "Name": "OPPO A16k 3GB-32GB",
+      "Category_ID": 5,
+      "Price": 2490000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/2/10/637801040843916628_oppo-a16k-black-5.jpg"
+    },
+    {
+      "id": 50,
+      "Name": "OPPO Find N2 Flip",
+      "Category_ID": 5,
+      "Price": 19990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/3/15/638144857815324025_oppo-find-n2-flip-tim-5.jpg"
+    },
+    {
+      "id": 51,
+      "Name": "Nokia 5710 XpressAudio",
+      "Category_ID": 6,
+      "Price": 1390000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/10/18/638016911092774046_nokia-5710-xpressaudio-trang-5.jpg"
+    },
+    {
+      "id": 52,
+      "Name": "Nokia G22 4GB-128GB",
+      "Category_ID": 6,
+      "Price": 3690000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/3/20/638149295315169638_nokia-g22-xam-1.jpg"
+    },
+    {
+      "id": 53,
+      "Name": "Nokia 110 DS 4G",
+      "Category_ID": 6,
+      "Price": 720000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/665x374/filters:quality(100):fill(white)/fptshop.com.vn/Uploads/Originals/2021/7/3/637609472341229945_nokia-110-4g-ban-phim.png"
+    },
+    {
+      "id": 54,
+      "Name": "Nokia 105 DS 4G",
+      "Category_ID": 6,
+      "Price": 670000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/665x374/filters:quality(100):fill(white)/fptshop.com.vn/Uploads/Originals/2021/7/5/637610833631043132_nokia-105-4g-pin.png"
+    },
+    {
+      "id": 55,
+      "Name": "Nokia C30 3GB-32GB",
+      "Category_ID": 6,
+      "Price": 1990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/665x374/filters:quality(100):fill(white)/fptshop.com.vn/Uploads/Originals/2021/8/23/637653499921477663_nokia-c30-thiet-ke.png"
+    },
+    {
+      "id": 56,
+      "Name": "Nokia 215 DS 4G",
+      "Category_ID": 6,
+      "Price": 990000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/11/13/637408828199861949_nokia-215-den-5.png"
+    },
+    {
+      "id": 57,
+      "Name": "Nokia 2660 Flip 4G",
+      "Category_ID": 6,
+      "Price": 1590000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/9/15/637988559501334883_nokia-2660-flip-den-2.jpg"
+    },
+    {
+      "id": 58,
+      "Name": "Nokia 8210 4G",
+      "Category_ID": 6,
+      "Price": 1590000,
+      "Images": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/8/4/637952294132626253_nokia-8210-4g-xanh-5.jpg"
+    }
+  ]
+}

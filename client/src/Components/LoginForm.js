@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import UserContext from "../Context/UserContext.js";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Modal from "react-modal";
@@ -8,7 +8,7 @@ import ResendVerification from "./ResendVerification";
 import "../styles/ModalStyles.css";
 const LoginForm = () => {
   const { userData, setUserData } = useContext(UserContext);
-  const history = useHistory();
+  const history = useNavigate();
   const [form, setForm] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const onChange = (e) => {
@@ -33,9 +33,9 @@ const LoginForm = () => {
         
         localStorage.setItem("auth-token", data.token);
          if (data.user.role === "admin" || data.user.role === "doctor") {
-          history.push("/admin");
+          history("/admin");
         } else {
-          history.push("/");
+          history("/");
         }
       }
     } catch (err) {
@@ -45,7 +45,7 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (userData.user) history.push("/");
+    if (userData.user) history("/");
   }, [userData.user, history]);
 
   return (
@@ -84,14 +84,14 @@ const LoginForm = () => {
         <button
           className="register-btn rounded-pill"
           style={{ margin: 20 }}
-          onClick={() => history.push("/Register")}
+          onClick={() => history("/Register")}
         >
           Register
         </button>
         <button
           className="register-btn rounded-pill"
           style={{ margin: 30 }}
-          onClick={() => history.push("/forgot-password")}
+          onClick={() => history("/forgot-password")}
         >
           Forgot Password
         </button>

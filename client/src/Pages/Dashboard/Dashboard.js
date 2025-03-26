@@ -68,7 +68,7 @@ const Dashboard = () => {
           <Row className="mb-4">
             <Col md={3}>
               <Card className="shadow-sm text-center p-3 overview-card">
-                <h4>Total Appointments</h4>
+                <h4>Total All Appointments</h4>
                 <h2>{stats.totalAppointments}</h2>
               </Card>
             </Col>

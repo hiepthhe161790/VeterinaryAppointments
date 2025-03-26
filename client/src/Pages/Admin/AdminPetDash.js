@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import UserContext from "../../Context/UserContext";
 import VetVisits from "../../Components/VetVisits";
 import Medications from "../../Components/Medications";
@@ -13,7 +13,7 @@ const AdminPetDash = () => {
     const { userData } = useContext(UserContext);
     const [data, setData] = useState(null);
     const [img] = useState();
-    const history = useHistory();
+    const history = useNavigate();
     const { newPetData, setNewPetData } = useContext(PetContext);
     const { petId } = useParams();
     const [showModal, setShowModal] = useState(false);

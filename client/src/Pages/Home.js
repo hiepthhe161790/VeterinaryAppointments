@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AddPet from "../Components/Modals/AddPet";
 import UserContext from "../Context/UserContext";
 import PetContext from "../Context/PetContext";
@@ -9,21 +9,21 @@ import { Button, Spinner } from "react-bootstrap";
 const Home = () => {
     const { userData } = useContext(UserContext);
     const { setPetId, pets } = useContext(PetContext);
-    const history = useHistory();
+    const history = useNavigate();
     const displayName = userData.user?.displayName;
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         const timeout = setTimeout(() => {
             if (userData.user === undefined) {
-                history.push("/login"); 
+                history("/login"); 
             }
         }, 3000); 
     
         if (userData.user === undefined) return; 
         if (!userData.user) {
             clearTimeout(timeout); // Hủy timeout nếu userData.user đã được cập nhật
-            history.push("/login"); // Redirect nếu chưa đăng nhập
+            history("/login"); // Redirect nếu chưa đăng nhập
         }
         setLoading(false); // Dữ liệu đã tải xong
     
@@ -36,7 +36,7 @@ const Home = () => {
         try {
             setPetId(id);
             let thisPet = pets.filter((pet) => pet._id === id);
-            history.push({
+            history({
                 pathname: "/petDash",
                 state: { info: thisPet },
             });

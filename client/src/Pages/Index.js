@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../styles/index.css';
 import '../../styles/navbar.css';
@@ -9,7 +9,7 @@ import UserContext from '../Context/UserContext';
 const Index = () => {
   const [roomID, setRoomID] = useState('');
   const { userData,setUserData } = useContext(UserContext);
-  const navigate = useHistory();
+  const navigate = useNavigate();
 
   const handleJoinRoom = (e) => {
     e.preventDefault();
