@@ -1,15 +1,20 @@
 const express = require("express");
+require('dotenv').config();
 const app = express();
 const path = require("path");
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
+const connectDB = require("./models/mongoConnection");
 require("./models/mongoConnection");
 const socketIo = require("socket.io");
 const cors = require("cors");
 const morgan = require('morgan');
 const { doctorRouter } = require("./routes/DoctorRouter");
 const { AppointmentRouter } = require("./routes/AppointmentRouter");
+
+connectDB();
+
 app.use(morgan());
-require('dotenv').config();
+
 
 // testing Socket.io
 const http = require("http").Server(app);

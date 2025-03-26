@@ -1,17 +1,14 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-mongoose.connect(
-	process.env.MONGODB_URI || "mongodb+srv://hiepthhe161790:G2yfYiErDCpL0FTL@cluster0.iqtdu.mongodb.net/MYPET?retryWrites=true&w=majority",
-	{
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useCreateIndex: true,
-		useFindAndModify: true,
-	},
-	(err) => {
-		if (err) throw err;
-		console.log("MongoDB connection established");
-	}
-);
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGODB_URI);
+        console.log('MongoDB connected successfully');
+    } catch (error) {
+        console.error("MongoDB connection failed: ", error);
+        process.exit(1);
+    }
+};
 
-module.exports = mongoose;
+module.exports = connectDB;
