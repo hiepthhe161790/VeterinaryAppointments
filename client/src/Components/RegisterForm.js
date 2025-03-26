@@ -38,7 +38,7 @@ const RegisterForm = () => {
 			);
 			history("/login");
 		} catch (err) {
-			toast.error(err.response);
+			toast.error(err.response.data.msg);
 		}
 	};
 
