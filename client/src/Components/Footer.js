@@ -15,36 +15,40 @@ const Footer = () => {
             <div className="rounded-circle bg-white shadow d-flex align-items-center justify-content-center mb-4 mx-auto" style={{ width: "120px", height: "120px" }}>
               <img src="https://mdbootstrap.com/img/Photos/new-templates/animal-shelter/logo.png" height="60" alt="Logo" loading="lazy" />
             </div>
-            <p className="text-center">Helping homeless animals find a home.</p>
+            <p className="text-center">Providing top-notch veterinary care and spa services for your beloved pets.</p>
             <div className="d-flex justify-content-center">
-              <a className="text-white px-2" href="#"><i className="fab fa-facebook-square"></i></a>
+              <a className="text-white px-2" href="https://www.facebook.com/profile.php?id=61573049399958"><i className="fab fa-facebook-square"></i></a>
               <a className="text-white px-2" href="#"><i className="fab fa-instagram"></i></a>
               <a className="text-white px-2" href="#"><i className="fab fa-youtube"></i></a>
             </div>
           </div>
 
           <div className="col-lg-3 col-md-6 mb-4">
-            <h5 className="text-uppercase mb-4">VetCare</h5>
+            <h5 className="text-uppercase mb-4">Our Services</h5>
             <ul className="list-unstyled">
-              <li><a href="#" className="text-white">Missing Pets</a></li>
-              <li><a href="#" className="text-white">Recently Found</a></li>
+              <li><a href="#" className="text-white">General Checkups</a></li>
+              <li><a href="#" className="text-white">Vaccinations</a></li>
+              <li><a href="#" className="text-white">Pet Grooming</a></li>
+              <li><a href="#" className="text-white">Emergency Care</a></li>
             </ul>
           </div>
 
           <div className="col-lg-3 col-md-6 mb-4">
-            <h5 className="text-uppercase mb-4">Animals</h5>
+            <h5 className="text-uppercase mb-4">Pet Spa</h5>
             <ul className="list-unstyled">
-              <li><a href="#" className="text-white">General Info</a></li>
-              <li><a href="#" className="text-white">About Shelter</a></li>
+              <li><a href="#" className="text-white">Full Grooming</a></li>
+              <li><a href="#" className="text-white">Nail Trimming</a></li>
+              <li><a href="#" className="text-white">Massage Therapy</a></li>
+              <li><a href="#" className="text-white">Dental Cleaning</a></li>
             </ul>
           </div>
 
           <div className="col-lg-3 col-md-6 mb-4">
-            <h5 className="text-uppercase mb-4">Contact</h5>
+            <h5 className="text-uppercase mb-4">Contact Us</h5>
             <ul className="list-unstyled">
-              <li><p><i className="fas fa-map-marker-alt"></i> Warsaw, Poland</p></li>
-              <li><p><i className="fas fa-phone"></i> +01 234 567 89</p></li>
-              <li><p><i className="fas fa-envelope"></i> vetcare@gmail.com</p></li>
+              <li><p><i className="fas fa-map-marker-alt"></i> Ho Chi Minh City, Vietnam</p></li>
+              <li><p><i className="fas fa-phone"></i> 0938070451</p></li>
+              <li><p><i className="fas fa-envelope"></i>khoiminh04071980@gmail.com</p></li>
             </ul>
           </div>
         </div>
