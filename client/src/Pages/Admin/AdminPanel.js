@@ -10,6 +10,7 @@ import { Modal, Button } from "react-bootstrap";
 import { toast } from 'react-toastify';
 import UserContext from "../../Context/UserContext";
 import axios from 'axios';
+
 const AdminPanel = () => {
   const [appointments, setAppointments] = useState([]);
   const [statusFilter, setStatusFilter] = useState('');
@@ -23,6 +24,7 @@ const AdminPanel = () => {
   const [showModal, setShowModal] = useState(false);
   const [hasNewData, setHasNewData] = useState(false); // Trạng thái thông báo có dữ liệu mới
   const { userData, setUserData } = useContext(UserContext); // Access UserContext
+  const [loading, setLoading] = useState(true); // Loading state
 
   // Fetch user data to get doctorId
   const fetchUserData = async () => {
@@ -43,18 +45,21 @@ const AdminPanel = () => {
       console.error("Error fetching user data:", error);
     }
   };
+
   useEffect(() => {
     fetchUserData(); // Fetch user data on component mount
   }, []);
+
   const fetchAppointments = async () => {
+    setLoading(true); // Set loading state to true
     try {
-      let res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/getall`, {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/getall`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      let data = await res.json();
+      const data = await res.json();
 
       // Kiểm tra nếu dữ liệu mới khác với dữ liệu hiện tại
       if (JSON.stringify(data) !== JSON.stringify(appointments)) {
@@ -63,7 +68,9 @@ const AdminPanel = () => {
 
       setAppointments(data);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching appointments:", error);
+    } finally {
+      setLoading(false); // Set loading state to false
     }
   };
 
@@ -75,12 +82,16 @@ const AdminPanel = () => {
     }, 5000);
 
     return () => clearInterval(interval); // Dọn dẹp interval khi component unmount
-  }, [appointments]);
+  }, []);
 
   useEffect(() => {
     const fetchDoctors = async () => {
-      const doctorsData = await getAllDoctors();
-      setDoctors(doctorsData);
+      try {
+        const doctorsData = await getAllDoctors();
+        setDoctors(doctorsData);
+      } catch (error) {
+        console.error("Error fetching doctors:", error);
+      }
     };
     fetchDoctors();
   }, []);
@@ -91,7 +102,6 @@ const AdminPanel = () => {
 
   useEffect(() => {
     if (userData?.user?.role === 'doctor') {
-      //console.log("userData.user.doctorId", userData.user.doctorId);
       setDoctorFilter(userData.user.doctorId);
     }
   }, [userData]);
@@ -132,39 +142,39 @@ const AdminPanel = () => {
 
   const acceptAppointment = async (id) => {
     try {
-      let res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/update/${id}`, {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/update/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ status: 'approved' }),
       });
-      let data = await res.json();
+      const data = await res.json();
       if (data) {
         Swal.fire('Status updated', '', 'success');
         setDataUpdated(!dataUpdated);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error approving appointment:", error);
     }
   };
 
   const rejectAppointment = async (id) => {
     try {
-      let res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/update/${id}`, {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/update/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ status: 'rejected' }),
       });
-      let data = await res.json();
+      const data = await res.json();
       if (data) {
         Swal.fire('Status updated', '', 'success');
         setDataUpdated(!dataUpdated);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error rejecting appointment:", error);
     }
   };
 
@@ -187,12 +197,12 @@ const AdminPanel = () => {
     setSortOrder({ date: "asc", time: "asc" });
 
     try {
-      let res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/getall`);
-      let data = await res.json();
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/getall`);
+      const data = await res.json();
       setAppointments(data);
       toast.success("Data refreshed successfully");
     } catch (error) {
-      console.log(error);
+      console.error("Error refreshing data:", error);
     }
   };
 
@@ -205,11 +215,8 @@ const AdminPanel = () => {
     setShowModal(false);
     setSelectedAppointment(null);
   };
+
   const deleteAppointment = async (id) => {
-  //   if (userData?.user?.role === 'doctor') {
-  //     Swal.fire('Permission Denied', 'Doctors are not allowed to delete appointments.', 'error');
-  //     return;
-  // }
     const confirmDelete = await Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -242,6 +249,7 @@ const AdminPanel = () => {
       }
     }
   };
+
   return (
     <div>
       <div id="after-nav">
@@ -312,129 +320,137 @@ const AdminPanel = () => {
             </div>
 
           </div>
-          <table id="customers" className="w-90">
-            <thead>
-              <tr>
-                <th scope="col">Pet/Breed</th>
-                <th scope="col">
-                  Date
-                  <button onClick={() => handleSort('date')}>
-                    {sortOrder.date === 'asc' ? '↑' : '↓'}
-                  </button>
-                </th>
-                <th scope="col">
-                  Time
-                  <button onClick={() => handleSort('time')}>
-                    {sortOrder.time === 'asc' ? '↑' : '↓'}
-                  </button>
-                </th>
-                <th scope="col">Status</th>
-                <th scope="col">Veterinarian</th>
-                <th scope="col">Room ID</th>
-                <th scope="col">Payment</th>
-                <th scope="col">Approve</th>
-                <th scope="col">Reject</th>
-                <th scope="col">Detail</th>
-                <th scope="col">Reminder</th>
-                <th scope="col">Delete</th>
-              </tr>
-            </thead>
-            <tbody id="appointment">
-              {currentAppointments?.length > 0 ? (
-                currentAppointments?.map((appointment) => (
-                  <tr key={appointment._id}>
-                    <td>
-                      {appointment?.petId?.PetName} / {appointment?.petId?.Breed}
-                      <i
-                        className="bi bi-eye-fill"
-                        style={{ marginLeft: '10px', cursor: 'pointer', color: 'blue' }}
-                        data-bs-toggle="modal"
-                        data-bs-target={`#petModal-${appointment._id}`}
-                      ></i>
+          {loading ? (
+            <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+                  <i className="bi bi-arrow-repeat text-primary" style={{ fontSize: "3rem", animation: "spin 1s linear infinite" }}></i>
+            </div>
+          ) : (
+            <>
+              <table id="customers" className="w-90">
+                <thead>
+                  <tr>
+                    <th scope="col">Pet/Breed</th>
+                    <th scope="col">
+                      Date
+                      <button onClick={() => handleSort('date')}>
+                        {sortOrder.date === 'asc' ? '↑' : '↓'}
+                      </button>
+                    </th>
+                    <th scope="col">
+                      Time
+                      <button onClick={() => handleSort('time')}>
+                        {sortOrder.time === 'asc' ? '↑' : '↓'}
+                      </button>
+                    </th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Veterinarian</th>
+                    <th scope="col">Room ID</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Approve</th>
+                    <th scope="col">Reject</th>
+                    <th scope="col">Detail</th>
+                    <th scope="col">Reminder</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody id="appointment">
+                  {currentAppointments?.length > 0 ? (
+                    currentAppointments?.map((appointment) => (
+                      <tr key={appointment._id}>
+                        <td>
+                          {appointment?.petId?.PetName} / {appointment?.petId?.Breed}
+                          <i
+                            className="bi bi-eye-fill"
+                            style={{ marginLeft: '10px', cursor: 'pointer', color: 'blue' }}
+                            data-bs-toggle="modal"
+                            data-bs-target={`#petModal-${appointment._id}`}
+                          ></i>
 
-                      {/* Modal hiển thị chi tiết thú cưng */}
-                      <div
-                        className="modal fade"
-                        id={`petModal-${appointment._id}`}
-                        tabIndex="-1"
-                        aria-labelledby="petModalLabel"
-                        aria-hidden="true"
-                      >
-                        <div className="modal-dialog modal-dialog-centered modal-lg"
-                          style={{ transition: "transform 0.3s ease-out" }}>
-                          <div className="modal-content">
-                            <div className="modal-header">
-                              <h5 className="modal-title" id="petModalLabel">Information Pet</h5>
-                              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div className="modal-body">
-                              <p><strong>Name:</strong> {appointment?.petId?.PetName}</p>
-                              <p><strong>Breed:</strong> {appointment?.petId?.Breed}</p>
-                              <p><strong>BirthDate:</strong> {appointment?.petId?.BirthDate}</p>
-                              <p><strong>Parent:</strong> {appointment?.petId?.ParentID?.displayName}</p>
-                              <p><strong>Type Of Pet:</strong> {appointment?.petId?.TypeOfPet}</p>
-                            </div>
-                            <div className="modal-footer">
-                              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                          {/* Modal hiển thị chi tiết thú cưng */}
+                          <div
+                            className="modal fade"
+                            id={`petModal-${appointment._id}`}
+                            tabIndex="-1"
+                            aria-labelledby="petModalLabel"
+                            aria-hidden="true"
+                          >
+                            <div className="modal-dialog modal-dialog-centered modal-lg"
+                              style={{ transition: "transform 0.3s ease-out" }}>
+                              <div className="modal-content">
+                                <div className="modal-header">
+                                  <h5 className="modal-title" id="petModalLabel">Information Pet</h5>
+                                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div className="modal-body">
+                                  <p><strong>Name:</strong> {appointment?.petId?.PetName}</p>
+                                  <p><strong>Breed:</strong> {appointment?.petId?.Breed}</p>
+                                  <p><strong>BirthDate:</strong> {appointment?.petId?.BirthDate}</p>
+                                  <p><strong>Parent:</strong> {appointment?.petId?.ParentID?.displayName}</p>
+                                  <p><strong>Type Of Pet:</strong> {appointment?.petId?.TypeOfPet}</p>
+                                </div>
+                                <div className="modal-footer">
+                                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </td>
+                        </td>
 
-                    <td>{appointment?.date}</td>
-                    <td>{appointment.time}</td>
-                    <td className={getStatusClass(appointment?.status)}>
-                      {appointment?.status}
-                    </td>
-                    <td>{appointment?.doctorId?.name}</td>
-                    <td>{appointment?.roomId}</td>
-                    <td>{appointment?.paymentStatus}</td>
-                    <td className="table-icon-cell">
-                      <button className="btn btn-success" onClick={() => acceptAppointment(appointment._id)}><i className="bi bi-check-circle"></i> </button>
-                    </td>
-                    <td className="table-icon-cell">
-                      <button className="btn btn-danger" onClick={() => rejectAppointment(appointment._id)}>   <i className="bi bi-x-circle"></i></button>
-                    </td>
-                    <td className="table-icon-cell">
-                      <Button variant="outline-primary" size="sm" onClick={() => openModal(appointment)}>
-                        <i className="bi bi-eye-fill"></i>
-                      </Button>
-                    </td>
-                    <td className="table-icon-cell">
-                      <Link to={`/admin/petDash/${appointment?.petId?._id}`}>
-                        <button className="btn btn-primary"><i className="bi bi-bell"></i> </button>
-                      </Link>
-                    </td>
-                    <td className="table-icon-cell">
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => deleteAppointment(appointment._id)}
-                        disabled={userData?.user?.role === 'doctor'}
-                      >
-                        <i className="bi bi-trash"></i>
+                        <td>{appointment?.date}</td>
+                        <td>{appointment.time}</td>
+                        <td className={getStatusClass(appointment?.status)}>
+                          {appointment?.status}
+                        </td>
+                        <td>{appointment?.doctorId?.name}</td>
+                        <td>{appointment?.roomId}</td>
+                        <td>{appointment?.paymentStatus}</td>
+                        <td className="table-icon-cell">
+                          <button className="btn btn-success" onClick={() => acceptAppointment(appointment._id)}><i className="bi bi-check-circle"></i> </button>
+                        </td>
+                        <td className="table-icon-cell">
+                          <button className="btn btn-danger" onClick={() => rejectAppointment(appointment._id)}>   <i className="bi bi-x-circle"></i></button>
+                        </td>
+                        <td className="table-icon-cell">
+                          <Button variant="outline-primary" size="sm" onClick={() => openModal(appointment)}>
+                            <i className="bi bi-eye-fill"></i>
+                          </Button>
+                        </td>
+                        <td className="table-icon-cell">
+                          <Link to={`/admin/petDash/${appointment?.petId?._id}`}>
+                            <button className="btn btn-primary"><i className="bi bi-bell"></i> </button>
+                          </Link>
+                        </td>
+                        <td className="table-icon-cell">
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => deleteAppointment(appointment._id)}
+                            disabled={userData?.user?.role === 'doctor'}
+                          >
+                            <i className="bi bi-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="8">No Data Available</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+              <nav className="d-flex justify-content-center">
+                <ul className="pagination">
+                  {Array.from({ length: Math.ceil(filteredAppointments.length / appointmentsPerPage) }, (_, index) => (
+                    <li key={index + 1} className="page-item">
+                      <button onClick={() => paginate(index + 1)} className="page-link">
+                        {index + 1}
                       </button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="8">No Data Available</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-          <nav className="d-flex justify-content-center">
-            <ul className="pagination">
-              {Array.from({ length: Math.ceil(filteredAppointments.length / appointmentsPerPage) }, (_, index) => (
-                <li key={index + 1} className="page-item">
-                  <button onClick={() => paginate(index + 1)} className="page-link">
-                    {index + 1}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </>
+          )}
         </div>
       </div>
       <Modal show={showModal} onHide={closeModal} size="lg" centered>
