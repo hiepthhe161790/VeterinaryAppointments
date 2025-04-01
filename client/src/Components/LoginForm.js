@@ -15,13 +15,12 @@ const LoginForm = () => {
   const onChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-  console.log("Backend API URL:", process.env.REACT_APP_BACKEND_API_URL);
   const submitLoginForm = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
       const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/users/login`, form);
-      console.log("data", data);
+     
       if (!data.user.confirmed) {
         toast.error(
           "Your account has not been verified, please check your email."

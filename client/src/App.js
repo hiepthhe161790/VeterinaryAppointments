@@ -109,7 +109,7 @@ function App() {
                 
               </Route>
             </Routes>
-            {!window.location.pathname.startsWith("/admin") && <Footer />}
+            {!window.location.pathname.startsWith("/admin/") && !window.location.pathname.startsWith("/admin") && <Footer />}
           </PetContext.Provider>
         </UserContext.Provider>
       </Router>

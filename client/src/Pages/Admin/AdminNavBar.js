@@ -9,7 +9,6 @@ const AdminNavBar = () => {
   const { userData, setUserData } = useContext(UserContext);
   const history = useNavigate();
   const [loading, setLoading] = useState(true);
-  console.log("userData", userData?.user?.role);
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!userData?.user) {

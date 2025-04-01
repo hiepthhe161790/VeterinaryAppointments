@@ -91,7 +91,7 @@ const AdminPanel = () => {
 
   useEffect(() => {
     if (userData?.user?.role === 'doctor') {
-      console.log("userData.user.doctorId", userData.user.doctorId);
+      //console.log("userData.user.doctorId", userData.user.doctorId);
       setDoctorFilter(userData.user.doctorId);
     }
   }, [userData]);
