@@ -9,6 +9,7 @@ import AppointmentDetail from '../../Components/AppointmentDetail';
 import { Modal, Button } from "react-bootstrap";
 import { toast } from 'react-toastify';
 import UserContext from "../../Context/UserContext";
+import axios from 'axios';
 const AdminPanel = () => {
   const [appointments, setAppointments] = useState([]);
   const [statusFilter, setStatusFilter] = useState('');
@@ -21,7 +22,30 @@ const AdminPanel = () => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [hasNewData, setHasNewData] = useState(false); // Trạng thái thông báo có dữ liệu mới
-  const { userData } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext); // Access UserContext
+
+  // Fetch user data to get doctorId
+  const fetchUserData = async () => {
+    try {
+      const token = localStorage.getItem("auth-token");
+      if (token) {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_API_URL}/users`, {
+          headers: { "x-auth-token": token },
+        });
+        if (response.data) {
+          setUserData((prev) => ({
+            ...prev,
+            user: response.data, // Update user data with doctorId
+          }));
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUserData(); // Fetch user data on component mount
+  }, []);
   const fetchAppointments = async () => {
     try {
       let res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/getall`, {
@@ -67,6 +91,7 @@ const AdminPanel = () => {
 
   useEffect(() => {
     if (userData?.user?.role === 'doctor') {
+      console.log("userData.user.doctorId", userData.user.doctorId);
       setDoctorFilter(userData.user.doctorId);
     }
   }, [userData]);

@@ -126,21 +126,16 @@ module.exports = {
 
 	getUser: async (req, res) => {
 		try {
-			const user = await User.findById(req.user).populate('doctor'); // Populate doctor nếu có
-	
-			const response = {
+			const user = await User.findById(req.user).populate("doctor");
+
+			res.json({
 				displayName: user.displayName,
 				id: user._id,
 				role: user.role,
-			};
-	
-			if (user.role === 'doctor') {
-				response.doctorId = user.doctor?._id; // Trả về chỉ doctorId
-			}
-	
-			res.json(response);
+				doctorId: user?.doctor?._id,
+			});
 		} catch (err) {
-			res.status(500).json({ msg: err.message });
+			res.send(err.response);
 		}
 	},
 
