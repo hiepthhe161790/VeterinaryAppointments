@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Swal from 'sweetalert2';
 import '../../styles/admin.css';
@@ -8,7 +8,7 @@ import { getAllDoctors } from '../../Components/Helpers/DoctorFuntion';
 import AppointmentDetail from '../../Components/AppointmentDetail';
 import { Modal, Button } from "react-bootstrap";
 import { toast } from 'react-toastify';
-
+import UserContext from "../../Context/UserContext";
 const AdminPanel = () => {
   const [appointments, setAppointments] = useState([]);
   const [statusFilter, setStatusFilter] = useState('');
@@ -21,7 +21,7 @@ const AdminPanel = () => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [hasNewData, setHasNewData] = useState(false); // Trạng thái thông báo có dữ liệu mới
-
+  const { userData } = useContext(UserContext);
   const fetchAppointments = async () => {
     try {
       let res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/getall`, {
@@ -65,8 +65,16 @@ const AdminPanel = () => {
     setStatusFilter(e.target.value);
   };
 
+  useEffect(() => {
+    if (userData?.user?.role === 'doctor') {
+      setDoctorFilter(userData.user.doctorId);
+    }
+  }, [userData]);
+
   const handleDoctorChange = (e) => {
-    setDoctorFilter(e.target.value);
+    if (userData?.user?.role !== 'doctor') {
+      setDoctorFilter(e.target.value);
+    }
   };
 
   const handleSort = (field) => {
@@ -172,7 +180,43 @@ const AdminPanel = () => {
     setShowModal(false);
     setSelectedAppointment(null);
   };
+  const deleteAppointment = async (id) => {
+  //   if (userData?.user?.role === 'doctor') {
+  //     Swal.fire('Permission Denied', 'Doctors are not allowed to delete appointments.', 'error');
+  //     return;
+  // }
+    const confirmDelete = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!'
+    });
 
+    if (confirmDelete.isConfirmed) {
+      try {
+        const res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/delete/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          Swal.fire('Deleted!', 'The appointment has been deleted.', 'success');
+          setAppointments(appointments.filter((appointment) => appointment._id !== id));
+        } else {
+          Swal.fire('Error!', data.message || 'Failed to delete the appointment.', 'error');
+        }
+      } catch (error) {
+        console.error('Error deleting appointment:', error);
+        Swal.fire('Error!', 'An error occurred while deleting the appointment.', 'error');
+      }
+    }
+  };
   return (
     <div>
       <div id="after-nav">
@@ -215,9 +259,14 @@ const AdminPanel = () => {
               <label>
                 <h2>Doctor:</h2>
               </label>
-              <select id="mydoctor" value={doctorFilter} onChange={handleDoctorChange}>
+              <select
+                id="mydoctor"
+                value={doctorFilter}
+                onChange={handleDoctorChange}
+                disabled={userData?.user?.role === 'doctor'}
+              >
                 <option value="">Select Veterinarians</option>
-                {doctors?.map((doctor) => (
+                {doctors?.filter((doctor) => doctor?.name?.trim()).map((doctor) => (
                   <option key={doctor._id} value={doctor._id}>
                     {doctor?.name}
                   </option>
@@ -262,6 +311,7 @@ const AdminPanel = () => {
                 <th scope="col">Reject</th>
                 <th scope="col">Detail</th>
                 <th scope="col">Reminder</th>
+                <th scope="col">Delete</th>
               </tr>
             </thead>
             <tbody id="appointment">
@@ -315,23 +365,31 @@ const AdminPanel = () => {
                     <td>{appointment?.doctorId?.name}</td>
                     <td>{appointment?.roomId}</td>
                     <td>{appointment?.paymentStatus}</td>
-                    <td>
-                      <button className="btn btn-success" onClick={() => acceptAppointment(appointment._id)}>Approve</button>
+                    <td className="table-icon-cell">
+                      <button className="btn btn-success" onClick={() => acceptAppointment(appointment._id)}><i className="bi bi-check-circle"></i> </button>
                     </td>
-                    <td>
-                      <button className="btn btn-danger" onClick={() => rejectAppointment(appointment._id)}>Reject</button>
+                    <td className="table-icon-cell">
+                      <button className="btn btn-danger" onClick={() => rejectAppointment(appointment._id)}>   <i className="bi bi-x-circle"></i></button>
                     </td>
-                    <td>
+                    <td className="table-icon-cell">
                       <Button variant="outline-primary" size="sm" onClick={() => openModal(appointment)}>
                         <i className="bi bi-eye-fill"></i>
                       </Button>
                     </td>
-                    <td>
-                      <Link to={`admin/petDash/${appointment?.petId?._id}`}>
-                        <button className="btn btn-primary">Reminder</button>
+                    <td className="table-icon-cell">
+                      <Link to={`/admin/petDash/${appointment?.petId?._id}`}>
+                        <button className="btn btn-primary"><i className="bi bi-bell"></i> </button>
                       </Link>
                     </td>
-
+                    <td className="table-icon-cell">
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => deleteAppointment(appointment._id)}
+                        disabled={userData?.user?.role === 'doctor'}
+                      >
+                        <i className="bi bi-trash"></i>
+                      </button>
+                    </td>
                   </tr>
                 ))
               ) : (

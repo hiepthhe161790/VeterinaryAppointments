@@ -269,3 +269,13 @@ select{
   text-align: center;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+.table-icon-cell {
+  text-align: center; /* Căn giữa theo chiều ngang */
+  vertical-align: middle; /* Căn giữa theo chiều dọc */
+}
+
+.table-icon-cell button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

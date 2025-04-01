@@ -87,7 +87,7 @@ function App() {
                 <Route path="view-doctor/:id" element={<UpdateDoctor />} />
                 <Route path="users" element={<AdminAccount />} />
                 <Route path="doctors" element={<AdminDoctor />} />
-                <Route path="admin/petDash/:petId" element={<AdminPetDash />} />
+                <Route path="petDash/:petId" element={<AdminPetDash />} />
                 <Route path="appointment" element={<AdminPanel />} />
               </Route>
 
@@ -106,10 +106,10 @@ function App() {
                 <Route path="success" element={<PayOSReturnHandler />} />
                 <Route path="cancel" element={<CancelReturnHandler />} />
                 <Route index element={<Home />} />
+                
               </Route>
-              <Route path="/" element={<Footer />} />
             </Routes>
-        
+            {!window.location.pathname.startsWith("/admin") && <Footer />}
           </PetContext.Provider>
         </UserContext.Provider>
       </Router>

@@ -21,6 +21,7 @@ router.post("/login", login);
 
 
 router.delete("/delete/:id", auth, deleteUser);
+router.delete("/delete-no-auth/:id", deleteUser);
 router.post("/reject",rejectOrComfirmUser)
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password/:token', resetPassword);

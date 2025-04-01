@@ -28,6 +28,17 @@ const AdminSideBar = () => {
             <h2>Manage Appointment</h2>
           </Nav.Link>
         </Nav.Item>
+        {userData?.user?.role === "doctor" && (
+          <Nav.Item className="admin-nav-item">
+            <Nav.Link
+              as={Link}
+              to={`/admin/view-doctor/${userData?.user?.doctorId}`}
+              className={location.pathname === `/admin/view-doctor/${userData?.user?.doctorId}` ? "active-nav" : ""}
+            >
+              <h2>Doctor Profile</h2>
+            </Nav.Link>
+          </Nav.Item>
+        )}
         {userData?.user?.role !== "doctor" && (
           <>
             <Nav.Item className="admin-nav-item">

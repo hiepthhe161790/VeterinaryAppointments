@@ -32,15 +32,47 @@ const AdminDoctor = () => {
         fetchUsers();
     }, []);
 
-   
+
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
     }
+    const deleteDoctor = async (doctorId) => {
+        const confirmDelete = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        });
 
+        if (confirmDelete.isConfirmed) {
+            try {
+                const res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/doctor/delete?id=${doctorId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const data = await res.json();
+                if (res.ok) {
+                    Swal.fire('Deleted!', 'The doctor has been deleted.', 'success');
+                    setUsers(users.filter((user) => user.doctor._id !== doctorId));
+                } else {
+                    Swal.fire('Error!', data.message || 'Failed to delete the doctor.', 'error');
+                }
+            } catch (error) {
+                console.error('Error deleting doctor:', error);
+                Swal.fire('Error!', 'An error occurred while deleting the doctor.', 'error');
+            }
+        }
+    };
     const filteredUsers = users.filter((user) => {
         return (
             (user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-             user.displayName.toLowerCase().includes(searchTerm.toLowerCase()))
+                user.displayName.toLowerCase().includes(searchTerm.toLowerCase()))
         );
     });
 
@@ -50,8 +82,8 @@ const AdminDoctor = () => {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-   
-    
+
+
 
     return (
         <div>
@@ -62,8 +94,8 @@ const AdminDoctor = () => {
                         <h1 className="d-flex justify-content-center">Veterinarian</h1>
                     </div>
                     <div id="chek">
-                       
-                     
+
+
                         <div className="chekin">
                             <label>Search</label>
                             <input
@@ -75,7 +107,7 @@ const AdminDoctor = () => {
                         </div>
                     </div>
                     <table id="customers">
-            <thead>
+                        <thead>
                             <tr>
                                 <th scope="col">Name Doctor</th>
                                 <th scope="col">Facility, spa</th>
@@ -84,7 +116,7 @@ const AdminDoctor = () => {
                                 <th scope="col">Clinic/Facility</th>
                                 <th scope="col">Experience</th>
                                 <th scope="col">Specialization</th>
-                 
+
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -96,15 +128,27 @@ const AdminDoctor = () => {
                                     <td>{user?.doctor.gender}</td>
                                     <td>{user?.doctor.contact}</td>
                                     <td>{user?.doctor.address}</td>
-                                    <td>{user?.doctor.experience}</td>
-                                    <td>{user?.doctor.specialization}</td>
+                                    <td>{user?.doctor.experience} years</td>
+                                    <td>
+                                        {user?.doctor.specialization?.length > 50
+                                            ? `${user?.doctor.specialization.substring(0, 50)}...`
+                                            : user?.doctor.specialization}
+                                    </td>
                                     <td>
                                         {user?.doctor ? (
-                                            <Link to={`/admin/view-doctor/${user.doctor._id}`}>
-                                                <button className="btn btn-secondary">
-                                                    View
+                                            <div className="d-flex justify-content-between align-items-center">
+                                                <Link to={`/admin/view-doctor/${user.doctor._id}`}>
+                                                    <button className="btn btn-secondary">
+                                                        View
+                                                    </button>
+                                                </Link>
+                                                <button
+                                                    className="btn btn-danger"
+                                                    onClick={() => deleteDoctor(user.doctor._id)}
+                                                >
+                                                    Delete
                                                 </button>
-                                            </Link>
+                                            </div>
                                         ) : (
                                             <Link to={`/admin/add-doctor/${user._id}`}>
                                                 <button className="btn btn-primary">
@@ -113,7 +157,7 @@ const AdminDoctor = () => {
                                             </Link>
                                         )}
                                     </td>
-                                    
+
                                 </tr>
                             ))}
                         </tbody>

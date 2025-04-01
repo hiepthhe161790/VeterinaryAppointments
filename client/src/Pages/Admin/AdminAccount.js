@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import '../../styles/admin.css';
 import AdminSideBar from './AdminSideBar';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
 const AdminAccount = () => {
     const [users, setUsers] = useState([]);
     const [statusFilter, setStatusFilter] = useState('');
@@ -76,7 +76,37 @@ const AdminAccount = () => {
             Swal.fire('Error', 'Something went wrong!', 'error');
         }
     };
+    const deleteUser = async (id) => {
+        const confirmDelete = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        });
 
+        if (confirmDelete.isConfirmed) {
+            try {
+                const res = await axios.delete(`${process.env.REACT_APP_BACKEND_API_URL}/users/delete-no-auth/${id}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (res.status === 200) {
+                    Swal.fire('Deleted!', 'The user has been deleted.', 'success');
+                    setUsers(users.filter((user) => user._id !== id));
+                } else {
+                    Swal.fire('Error!', 'Failed to delete the user.', 'error');
+                }
+            } catch (error) {
+                console.error('Error deleting user:', error);
+                Swal.fire('Error!', 'An error occurred while deleting the user.', 'error');
+            }
+        }
+    };
 
     return (
         <div>
@@ -148,22 +178,29 @@ const AdminAccount = () => {
                                         )}
                                     </td>
                                     <td>
-
-                                        {user?.confirmed ? (
+                                        <div className="d-flex align-items-center gap-1">
+                                            {user?.confirmed ? (
+                                                <button
+                                                    className="btn btn-danger btn-sm"
+                                                    onClick={() => rejectUser(user._id)}
+                                                >
+                                                    Reject
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    className="btn btn-success btn-sm"
+                                                    onClick={() => rejectUser(user._id)}
+                                                >
+                                                    Approve
+                                                </button>
+                                            )}
                                             <button
-                                                className="btn btn-danger"
-                                                onClick={() => rejectUser(user._id)}
+                                                className="btn btn-danger btn-sm"
+                                                onClick={() => deleteUser(user._id)}
                                             >
-                                                Reject
+                                                Delete
                                             </button>
-                                        ) : (
-                                            <button
-                                                className="btn btn-success"
-                                                onClick={() => rejectUser(user._id)}
-                                            >
-                                                Approve
-                                            </button>
-                                        )}
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

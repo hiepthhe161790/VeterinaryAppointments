@@ -267,8 +267,18 @@ AppointmentRouter.put("/update-paymentStatus/:id", async (req, res) => {
     (error) {
         res.json({ "Error": error.message })
     }
-}
-
-)
+});
+AppointmentRouter.delete("/delete/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deletedAppointment = await AppointmentModel.findByIdAndDelete(id); // Xóa appointment theo ID
+        if (!deletedAppointment) {
+            return res.status(404).json({ mess: "Appointment not found" });
+        }
+        res.json({ mess: "Appointment deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
 module.exports = { AppointmentRouter }

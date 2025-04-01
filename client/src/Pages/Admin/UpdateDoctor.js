@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../styles/admin.css";
 import AdminSideBar from "./AdminSideBar";
-import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom"; 
 const UpdateDoctor = () => {
   const { id } = useParams(); // Lấy doctorId từ URL
+  const navigate = useNavigate(); 
   const [formData, setFormData] = useState({
     gender: "",
     age: "",
@@ -160,11 +161,14 @@ const UpdateDoctor = () => {
                 <button id="btn1" className="add-btn btn" type="submit">
                   Update
                 </button>
-                <Link to="/admin/doctors">
-                    <button id="btn2" className="add-btn btn">
-                        Cancel
-                    </button>
-                </Link>
+                <button
+                  id="btn2"
+                  className="add-btn btn"
+                  type="button"
+                  onClick={() => navigate(-1)} // Quay lại trang trước đó
+                >
+                  Cancel
+                </button>
               </div>
             </form>
           </div>

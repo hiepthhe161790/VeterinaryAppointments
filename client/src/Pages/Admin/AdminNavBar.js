@@ -23,7 +23,7 @@ const AdminNavBar = () => {
         toast.error("You are not authorized to view this page");
       }
       setLoading(false); // Dừng trạng thái loading
-    }, 1000);
+    }, 2000);
   
     return () => clearTimeout(timeout); // Dọn dẹp timeout khi component unmount
   }, [userData?.user, history]);

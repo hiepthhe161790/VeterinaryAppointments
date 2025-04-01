@@ -32,7 +32,9 @@ doctorRouter.post("/register", async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-
+        if (user.role === "admin") {
+            return res.status(400).json({ message: "Admin accounts cannot be registered as doctors" });
+        }
         if (user.role === "doctor") {
             return res.status(400).json({ message: "User is already a doctor" });
         }
@@ -74,11 +76,27 @@ doctorRouter.post("/register", async (req, res) => {
 
 doctorRouter.delete("/delete", async (req, res) => {
     try {
-        let id = req.query.id;
-        let user = await DoctorModel.findByIdAndDelete({ _id: id });
-        res.json({ "mess": "Doctor Deleted" });
+        const id = req.query.id; 
+
+        const doctor = await DoctorModel.findById(id);
+        if (!doctor) {
+            return res.status(404).json({ message: "Doctor not found" });
+        }
+
+  
+        await DoctorModel.findByIdAndDelete(id);
+
+        const user = await userModel.findById(doctor.userID);
+        if (user) {
+            user.doctor = null;
+            user.role = "user"; 
+            await user.save();
+        }
+
+        res.json({ message: "Doctor and associated user data deleted successfully" });
     } catch (error) {
-        res.json({ "Error": error.message });
+        console.error("Error:", error.message);
+        res.status(500).json({ error: error.message });
     }
 });
 

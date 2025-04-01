@@ -32,7 +32,7 @@ const AdminPetDash = () => {
 
     useEffect(() => { }, [img]);
 
-
+ console.log("petId", petId);
 console.log("data", data);
     return (
         <div className="container-fluid">
@@ -63,6 +63,11 @@ console.log("data", data);
                                     <div className="edit-new-pet">
                                         <Button variant="primary" onClick={() => setShowModal(true)}>
                                            View Pet Info
+                                        </Button>
+                                    </div>
+                                    <div className="edit-new-pet" style={{ marginTop: "10px" }}>
+                                        <Button variant="primary" onClick={() => history("/admin/appointment")}>
+                                            Back to Appointments
                                         </Button>
                                     </div>
                                 </div>

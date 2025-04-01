@@ -1,91 +1,132 @@
-#title{
+#title {
     margin-bottom: 2%;
     text-align: center;
 }
-table{
-    width:80%;
+
+table {
+    width: 80%;
     margin: auto;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
-tr{
+
+tr {
     border: 1px solid rgb(239, 236, 236);
 }
-td{
+
+td {
     padding: 1%;
 }
-thead>tr{
-    background-color: #544dcf
+
+thead > tr {
+    background-color: #544dcf;
 }
-th{
+
+th {
     padding: 1%;
     color: white;
 }
-#not_available_box{
+
+#not_available_box {
     margin-bottom: 250px;
     text-align: center;
     color: grey;
 }
-#filter_box{
+
+#filter_box {
     display: flex;
-    margin:auto;
+    margin: auto;
     text-align: center;
     margin-left: 10%;
     font-weight: bold;
-    
 }
-#filter_box>p{
+
+#filter_box > p {
     margin-right: 10px;
     margin: 3px;
 }
-#filter_box>select{
+
+#filter_box > select {
     border: 1px solid grey;
     border-radius: 5px;
     height: 30px;
     padding: 4px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+
 .truncate {
-    max-width: 100px; 
-    white-space: nowrap; 
-    overflow: hidden; 
-    text-overflow: ellipsis; 
-  }
-  .appointment-container {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.appointment-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-  }
-  
-  table {
-    width: 80%; /* Điều chỉnh kích thước bảng */
-  }
-  
+}
 
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Responsive styles for screens smaller than 550px */
 @media (max-width: 550px) {
     table {
         font-size: 14px;
     }
+
     th, td {
         padding: 10px;
         font-size: 12px;
     }
+
     #title {
         font-size: 20px;
     }
-    
-    
+
+    /* Hide less important columns */
+    th:nth-child(4), /* Time */
+    th:nth-child(5), /* Room ID */
+    th:nth-child(6), /* Fee */
+    th:nth-child(7), /* Payment */
+    th:nth-child(8) { /* Status */
+        display: none;
+    }
+
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6),
+    td:nth-child(7),
+    td:nth-child(8) {
+        display: none;
+    }
 }
+
+/* Responsive styles for screens smaller than 350px */
 @media (max-width: 350px) {
     table {
         font-size: 10px;
     }
+
     th, td {
         padding: 5px;
         font-size: 10px;
     }
+
     #title {
         font-size: 15px;
+    }
+
+    #filter_box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #filter_box > select {
+        width: 100%;
+        margin-top: 10px;
     }
 }
