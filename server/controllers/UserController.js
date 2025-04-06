@@ -142,6 +142,9 @@ module.exports = {
 	deleteUser: async (req, res) => {
 		try {
 			const user = await User.findById({ _id: req.params.id });
+			if (user.role === "admin") {
+				return res.status(403).json({ msg: "Cannot delete an admin user." });
+			}
 			user.remove();
 			res.json(user);
 		} catch (err) {
@@ -163,7 +166,9 @@ module.exports = {
 			if (!user) {
 				return res.status(404).json({ msg: "User not found" });
 			}
-	
+			if (user.role === "admin") {
+				return res.status(403).json({ msg: "Cannot modify an admin user." });
+			}
 			user.confirmed = !user.confirmed;
 			await user.save();
 	

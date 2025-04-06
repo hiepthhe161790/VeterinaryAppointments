@@ -62,6 +62,18 @@ const AdminAccount = () => {
                 },
                 body: JSON.stringify({ userId: id }),
             });
+    
+            if (res.status === 403) {
+                // Nếu server trả về lỗi 403
+                let data = await res.json();
+                Swal.fire('Error', data.msg, 'error'); // Hiển thị thông báo lỗi từ server
+                return;
+            }
+    
+            if (!res.ok) {
+                throw new Error('Failed to update user status');
+            }
+    
             let data = await res.json();
             Swal.fire('Status updated', '', 'success');
             setUsers((prev) =>
