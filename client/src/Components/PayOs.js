@@ -13,7 +13,7 @@ const PayOs = ({ appointment }) => {
             const response = await axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/update-payos`, {
                 appointmentId: appointment._id,
                 paymentMethod: "PayOS",
-                fee: 5000,
+                fee: appointment.fee,
             });
             console.log("Response data:", response.data);
             // Kiểm tra phản hồi từ server

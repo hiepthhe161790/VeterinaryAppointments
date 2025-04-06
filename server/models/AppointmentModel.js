@@ -8,14 +8,14 @@ const appointmentSchema= mongoose.Schema({
     doctorId:{type:mongoose.Schema.Types.ObjectId,ref:"DoctorDetail"},
     date: {
         type: String,
-        validate: {
-            validator: function (value) {
-                const appointmentDate = new Date(value);
-                const currentDate = new Date();
-                return appointmentDate >= currentDate;
-            },
-            message: "Appointment date cannot be in the past"
-        }
+        // validate: {
+        //     validator: function (value) {
+        //         const appointmentDate = new Date(value);
+        //         const currentDate = new Date();
+        //         return appointmentDate >= currentDate;
+        //     },
+        //     message: "Appointment date cannot be in the past"
+        // }
     },
     time:String,
     symptoms:String,
@@ -32,7 +32,7 @@ const appointmentSchema= mongoose.Schema({
     },
     paymentMethod: {
         type: String,
-        enum: ['Credit Card', 'PayPal', 'VnPay', 'Cash On Delivery', 'PayOS'],
+        enum: ['PayOS'],
         
     },
     paymentDetails: {

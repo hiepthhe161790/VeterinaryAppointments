@@ -10,10 +10,12 @@ const cors = require("cors");
 const morgan = require('morgan');
 const { doctorRouter } = require("./routes/DoctorRouter");
 const { AppointmentRouter } = require("./routes/AppointmentRouter");
-
+const {FakeUserRouter} = require("./routes/FakeUserRouter");
+const {FakePetRouter} = require("./routes/FakePetRouter");
+const {FakeAppointmentRouter} = require("./routes/FakeAppointmentRouter");
 connectDB();
 
-app.use(morgan());
+app.use(morgan('combined'));
 
 
 // testing Socket.io
@@ -30,6 +32,9 @@ app.use(express.json());
 app.use(cors());
 
 // setup routes
+app.use("/fake", FakeUserRouter);
+app.use("/fake", FakePetRouter);
+app.use("/fake", FakeAppointmentRouter);
 app.use("/register", require("./routes/confirmRoutes"));
 app.use("/users", require("./routes/userRoutes"));
 app.use("/api", require("./routes/petRoutes"));
@@ -37,6 +42,7 @@ app.use("/api", require("./routes/imageRoutes"));
 app.use("/api", require("./routes/imgLocRoutes"));
 app.use("/appointment", AppointmentRouter);
 app.use("/doctor", doctorRouter);
+
 
 // Remove serving React build files
 app.get("/", (req, res) => {

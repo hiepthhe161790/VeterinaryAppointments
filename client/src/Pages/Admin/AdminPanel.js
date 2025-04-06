@@ -10,6 +10,7 @@ import { Modal, Button } from "react-bootstrap";
 import { toast } from 'react-toastify';
 import UserContext from "../../Context/UserContext";
 import axios from 'axios';
+
 const AdminPanel = () => {
   const [appointments, setAppointments] = useState([]);
   const [statusFilter, setStatusFilter] = useState('');
@@ -23,7 +24,54 @@ const AdminPanel = () => {
   const [showModal, setShowModal] = useState(false);
   const [hasNewData, setHasNewData] = useState(false); // Trạng thái thông báo có dữ liệu mới
   const { userData, setUserData } = useContext(UserContext); // Access UserContext
-  const [loading, setLoading] = useState(true); // Loading state
+  const [isFirstLoad, setIsFirstLoad] = useState(true); // Trạng thái kiểm tra lần tải đầu tiên
+  const [loading, setLoading] = useState(false);
+
+  const fetchAppointments = async () => {
+    try {
+      setLoading(isFirstLoad); // Chỉ bật loading trong lần đầu tiên
+      let res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/getall`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      let data = await res.json();
+
+      // Kiểm tra nếu dữ liệu mới khác với dữ liệu hiện tại
+      if (JSON.stringify(data) !== JSON.stringify(appointments)) {
+        setHasNewData(true); // Hiển thị thông báo có dữ liệu mới
+      }
+
+      setAppointments(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false); // Tắt loading sau khi fetch xong
+      setIsFirstLoad(false); // Đánh dấu đã tải xong lần đầu tiên
+    }
+  };
+
+  useEffect(() => {
+    fetchAppointments(); // Lấy dữ liệu ban đầu
+
+    const interval = setInterval(() => {
+      fetchAppointments(); // Tự động làm mới dữ liệu mỗi 5 giây
+    }, 5000);
+
+    return () => clearInterval(interval); // Dọn dẹp interval khi component unmount
+  }, [appointments]);
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const doctorsData = await getAllDoctors();
+        setDoctors(doctorsData);
+      } catch (error) {
+        console.error("Error fetching doctors:", error);
+      }
+    };
+    fetchDoctors();
+  }, []);
   // Fetch user data to get doctorId
   const fetchUserData = async () => {
     try {
@@ -43,50 +91,12 @@ const AdminPanel = () => {
       console.error("Error fetching user data:", error);
     }
   };
+
   useEffect(() => {
     fetchUserData(); // Fetch user data on component mount
   }, []);
-  const fetchAppointments = async () => {
-    setLoading(true); // Set loading state to true
-    try {
-      let res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/getall`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      let data = await res.json();
 
-      // Kiểm tra nếu dữ liệu mới khác với dữ liệu hiện tại
-      if (JSON.stringify(data) !== JSON.stringify(appointments)) {
-        setHasNewData(true); // Hiển thị thông báo có dữ liệu mới
-      }
-
-      setAppointments(data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false); // Set loading state to false
-    }
-  };
-
-  useEffect(() => {
-    fetchAppointments(); // Lấy dữ liệu ban đầu
-
-    const interval = setInterval(() => {
-      fetchAppointments(); // Tự động làm mới dữ liệu mỗi 5 giây
-    }, 5000);
-
-    return () => clearInterval(interval); // Dọn dẹp interval khi component unmount
-  }, []);
-
-  useEffect(() => {
-    const fetchDoctors = async () => {
-      const doctorsData = await getAllDoctors();
-      setDoctors(doctorsData);
-    };
-    fetchDoctors();
-  }, []);
+ 
 
   const handleStatusChange = (e) => {
     setStatusFilter(e.target.value);
@@ -94,7 +104,6 @@ const AdminPanel = () => {
 
   useEffect(() => {
     if (userData?.user?.role === 'doctor') {
-      //console.log("userData.user.doctorId", userData.user.doctorId);
       setDoctorFilter(userData.user.doctorId);
     }
   }, [userData]);
@@ -135,39 +144,39 @@ const AdminPanel = () => {
 
   const acceptAppointment = async (id) => {
     try {
-      let res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/update/${id}`, {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/update/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ status: 'approved' }),
       });
-      let data = await res.json();
+      const data = await res.json();
       if (data) {
         Swal.fire('Status updated', '', 'success');
         setDataUpdated(!dataUpdated);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error approving appointment:", error);
     }
   };
 
   const rejectAppointment = async (id) => {
     try {
-      let res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/update/${id}`, {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/update/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ status: 'rejected' }),
       });
-      let data = await res.json();
+      const data = await res.json();
       if (data) {
         Swal.fire('Status updated', '', 'success');
         setDataUpdated(!dataUpdated);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error rejecting appointment:", error);
     }
   };
 
@@ -190,12 +199,12 @@ const AdminPanel = () => {
     setSortOrder({ date: "asc", time: "asc" });
 
     try {
-      let res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/getall`);
-      let data = await res.json();
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/appointment/getall`);
+      const data = await res.json();
       setAppointments(data);
       toast.success("Data refreshed successfully");
     } catch (error) {
-      console.log(error);
+      console.error("Error refreshing data:", error);
     }
   };
 
@@ -208,11 +217,8 @@ const AdminPanel = () => {
     setShowModal(false);
     setSelectedAppointment(null);
   };
+
   const deleteAppointment = async (id) => {
-    //   if (userData?.user?.role === 'doctor') {
-    //     Swal.fire('Permission Denied', 'Doctors are not allowed to delete appointments.', 'error');
-    //     return;
-    // }
     const confirmDelete = await Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -245,6 +251,7 @@ const AdminPanel = () => {
       }
     }
   };
+
   return (
     <div>
       <div id="after-nav">
@@ -379,7 +386,7 @@ const AdminPanel = () => {
                                 <div className="modal-body">
                                   <p><strong>Name:</strong> {appointment?.petId?.PetName}</p>
                                   <p><strong>Breed:</strong> {appointment?.petId?.Breed}</p>
-                                  <p><strong>BirthDate:</strong> {appointment?.petId?.BirthDate}</p>
+                                  <p><strong>BirthDate:</strong> {new Date(appointment?.petId?.BirthDate).toLocaleDateString()}</p>
                                   <p><strong>Parent:</strong> {appointment?.petId?.ParentID?.displayName}</p>
                                   <p><strong>Type Of Pet:</strong> {appointment?.petId?.TypeOfPet}</p>
                                 </div>

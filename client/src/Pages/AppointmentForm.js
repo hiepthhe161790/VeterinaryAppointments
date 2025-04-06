@@ -195,6 +195,12 @@ const AppointmentForm = () => {
                     <option value="Grooming">Grooming</option>
                     <option value="Skin Care">Skin Care</option>
                     <option value="Disease Treatment">Disease Treatment</option>
+                    <option value="Vaccination">Vaccination</option>
+                    <option value="Dental Cleaning">Dental Cleaning</option>
+                    <option value="Nail Trimming">Nail Trimming</option>
+                    <option value="Emergency Care">Emergency Care</option>
+                    <option value="Massage Therapy">Massage Therapy</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
               </div>

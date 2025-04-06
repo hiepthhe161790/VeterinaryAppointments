@@ -121,7 +121,7 @@ const AddPet = ({ show, handleClose }) => {
 							<option value="Dog">Dog</option>
 							<option value="Cat">Cat</option>
 							<option value="Bird">Bird</option>
-							<option value="Fish">Fish</option>
+							<option value="Bunny">Bunny</option>
 							<option value="Reptile">Reptile</option>
 							<option value="Other">Other</option>
 						</select>
